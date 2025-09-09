@@ -39,7 +39,7 @@ Este comando instalará:
 1. Crie um arquivo `.env` na raiz do projeto:
 ```
 DATABASE_URL="file:./dev.db"
-PORT=3000
+PORT=4000
 ```
 
 2. Verifique se o arquivo `package.json` tem o script de desenvolvimento:
@@ -91,7 +91,7 @@ Verifique se os arquivos principais estão presentes:
 npm run dev
 ```
 
-2. O servidor estará rodando em `http://localhost:3000`
+2. O servidor estará rodando em `http://localhost:4000`
 
 ## Passo 7: Testando as Rotas
 
@@ -99,12 +99,12 @@ Use um cliente HTTP (Postman, Insomnia ou Thunder Client) para testar:
 
 1. Listar Produtos
 ```http
-GET http://localhost:3000/produtos
+GET http://localhost:4000/produtos
 ```
 
 2. Criar Produto
 ```http
-POST http://localhost:3000/produtos
+POST http://localhost:4000/produtos
 Content-Type: application/json
 
 {
@@ -118,12 +118,12 @@ Content-Type: application/json
 
 3. Buscar Produto por ID
 ```http
-GET http://localhost:3000/produtos/1
+GET http://localhost:4000/produtos/1
 ```
 
 4. Atualizar Produto
 ```http
-PUT http://localhost:3000/produtos/1
+PUT http://localhost:4000/produtos/1
 Content-Type: application/json
 
 {
@@ -133,7 +133,7 @@ Content-Type: application/json
 
 5. Deletar Produto
 ```http
-DELETE http://localhost:3000/produtos/1
+DELETE http://localhost:4000/produtos/1
 ```
 
 ## Passo 8: Gerenciando o Banco de Dados
