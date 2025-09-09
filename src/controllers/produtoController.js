@@ -1,6 +1,6 @@
 import ProdutoModel from "../models/produtoModel.js";
 
-class ProdutoController {
+const produtoController = {
   async getAll(req, res) {
     try {
       const produtoModel = new ProdutoModel();
@@ -10,7 +10,7 @@ class ProdutoController {
       console.error(error);
       res.status(500).json({ error: "Erro ao buscar produtos" });
     }
-  }
+  },
   async getById(req, res) {
     try {
       const { id } = req.params;
@@ -22,33 +22,63 @@ class ProdutoController {
       console.error(error);
       res.status(500).json({ error: "Erro ao buscar produto" });
     }
-  }
+  },
   async create(req, res) {
     try {
+      console.log('Body recebido:', req.body);
+      console.log('Headers:', req.headers);
+      
+      if (!req.body) {
+        return res.status(400).json({ error: "Body da requisição está vazio" });
+      }
+      
       const { nome, marca, preco, categoria, cor, estoque, imageUrl, descricao } = req.body;
       if (!nome || !marca || preco == null) {
         return res.status(400).json({ error: "nome, marca e preco são obrigatórios" });
       }
       const produtoModel = new ProdutoModel();
-      const novo = await produtoModel.create({ nome, marca, preco, categoria, cor, estoque, imageUrl, descricao });
+      const novo = await produtoModel.create({ 
+        nome, 
+        marca, 
+        preco, 
+        categoria, 
+        cor, 
+        estoque, 
+        imagemUrl: imageUrl, // Corrigindo o nome do campo
+        descricao 
+      });
       res.status(201).json(novo);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Erro ao criar produto" });
     }
-  }
+  },
   async update(req, res) {
     try {
       const { id } = req.params;
+      console.log('Update - ID:', id);
+      console.log('Update - Body recebido:', req.body);
+
+      const { nome, marca, preco, categoria, cor, estoque, imageUrl, descricao } = req.body;
+      
       const produtoModel = new ProdutoModel();
-      const atualizado = await produtoModel.update(id, req.body);
+      const atualizado = await produtoModel.update(id, {
+        nome,
+        marca,
+        preco,
+        categoria,
+        cor,
+        estoque,
+        imagemUrl: imageUrl, // Corrigindo o nome do campo
+        descricao
+      });
       if (!atualizado) return res.status(404).json({ error: "Produto não encontrado" });
       res.json(atualizado);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Erro ao atualizar produto" });
     }
-  }
+  },
   async delete(req, res) {
     try {
       const { id } = req.params;
@@ -63,4 +93,4 @@ class ProdutoController {
 }
 }
 
-export default new ProdutoController();
+export default produtoController;
